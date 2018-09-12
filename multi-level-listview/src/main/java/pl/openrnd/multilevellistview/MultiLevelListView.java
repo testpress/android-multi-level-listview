@@ -201,6 +201,55 @@ public class MultiLevelListView extends FrameLayout {
     }
 
     /**
+     * Notifies certain group node click event.
+     *
+     * @param view Clicked view (provided by the adapter).
+     * @param node Clicked group node.
+     */
+    public void onGroupItemClicked(View view, Node node) {
+        boolean isExpanded = node.isExpanded();
+        if (!isAlwaysExpanded()) {
+            if (isExpanded) {
+                mAdapter.collapseNode(node);
+            } else {
+                mAdapter.extendNode(node, mNestType);
+            }
+        }
+
+        if (mNestType == NestType.SINGLE) {
+            scrollToItemIfNeeded(mAdapter.getFlatItems().indexOf(node));
+        }
+
+        notifyGroupItemClicked(view, node);
+    }
+
+    /**
+     * Scrolls to click event if necessary.
+     *
+     * @param itemIndex Clicked item index.
+     */
+    public void scrollToItemIfNeeded(int itemIndex) {
+        int first = mListView.getFirstVisiblePosition();
+        int last = mListView.getLastVisiblePosition();
+
+        if ((itemIndex < first) || (itemIndex > last)) {
+            mListView.smoothScrollToPosition(itemIndex);
+        }
+    }
+
+    /**
+     * Notifies that certain group node was clicked.
+     *
+     * @param view Clicked view (provided by the adapter).
+     * @param node Clicked group node.
+     */
+    private void notifyGroupItemClicked(View view, Node node) {
+        if (mOnItemClickListener != null) {
+            mOnItemClickListener.onGroupItemClicked(MultiLevelListView.this, view, node.getObject(), node.getItemInfo());
+        }
+    }
+
+    /**
      * Helper class used to display created flat list of item's using Android's ListView.
      */
     class OnProxyItemClickListener implements AdapterView.OnItemClickListener {
@@ -218,18 +267,6 @@ public class MultiLevelListView extends FrameLayout {
         }
 
         /**
-         * Notifies that certain group node was clicked.
-         *
-         * @param view Clicked view (provided by the adapter).
-         * @param node Clicked group node.
-         */
-        private void notifyGroupItemClicked(View view, Node node) {
-            if (mOnItemClickListener != null) {
-                mOnItemClickListener.onGroupItemClicked(MultiLevelListView.this, view, node.getObject(), node.getItemInfo());
-            }
-        }
-
-        /**
          * Handles certain node click event.
          *
          * @param view Clicked view (provided by the adapter).
@@ -237,43 +274,6 @@ public class MultiLevelListView extends FrameLayout {
          */
         private void onItemClicked(View view, Node node) {
             notifyItemClicked(view, node);
-        }
-
-        /**
-         * Scrolls to click event if necessary.
-         *
-         * @param itemIndex Clicked item index.
-         */
-        private void scrollToItemIfNeeded(int itemIndex) {
-            int first = mListView.getFirstVisiblePosition();
-            int last = mListView.getLastVisiblePosition();
-
-            if ((itemIndex < first) || (itemIndex > last)) {
-                mListView.smoothScrollToPosition(itemIndex);
-            }
-        }
-
-        /**
-         * Notifies certain group node click event.
-         *
-         * @param view Clicked view (provided by the adapter).
-         * @param node Clicked group node.
-         */
-        private void onGroupItemClicked(View view, Node node) {
-            boolean isExpanded = node.isExpanded();
-            if (!isAlwaysExpanded()) {
-                if (isExpanded) {
-                    mAdapter.collapseNode(node);
-                } else {
-                    mAdapter.extendNode(node, mNestType);
-                }
-            }
-
-            if (mNestType == NestType.SINGLE) {
-                scrollToItemIfNeeded(mAdapter.getFlatItems().indexOf(node));
-            }
-
-            notifyGroupItemClicked(view, node);
         }
 
         /**
