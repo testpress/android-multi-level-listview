@@ -93,7 +93,7 @@ public abstract class MultiLevelListAdapter {
     /**
      * Reloads data. Method is causing nodes recreation.
      */
-    void reloadData() {
+    public void reloadData() {
         setDataItems(mSourceData);
     }
 
@@ -161,7 +161,7 @@ public abstract class MultiLevelListAdapter {
      *
      * @return List items.
      */
-    List<Node> getFlatItems() {
+    public List<Node> getFlatItems() {
         return mFlatItems;
     }
 
@@ -211,7 +211,7 @@ public abstract class MultiLevelListAdapter {
      * @param node The node.
      * @param nestTyp NestType value.
      */
-    void extendNode(Node node, NestType nestTyp) {
+    public void extendNode(Node node, NestType nestTyp) {
         node.setSubNodes(createNodeListFromDataItems(getSubObjects(node.getObject()), node));
         if (nestTyp == NestType.SINGLE) {
             clearPathToNode(node);
@@ -226,7 +226,7 @@ public abstract class MultiLevelListAdapter {
      *
      * @param node The node
      */
-    void collapseNode(Node node) {
+    public void collapseNode(Node node) {
         node.clearSubNodes();
         notifyDataSetChanged();
     }

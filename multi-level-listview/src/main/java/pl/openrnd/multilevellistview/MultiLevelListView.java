@@ -196,7 +196,7 @@ public class MultiLevelListView extends FrameLayout {
      *
      * @return Wrapped Android ListView instance.
      */
-    ListView getListView() {
+    public ListView getListView() {
         return mListView;
     }
 

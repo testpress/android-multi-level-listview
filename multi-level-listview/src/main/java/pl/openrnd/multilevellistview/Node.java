@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Class used to represent MultiLevelListView items. User objects are wrapped with this type.
  */
-class Node {
+public class Node {
 
     private Object mObject;
     private int mLevel;
@@ -58,7 +58,7 @@ class Node {
      *
      * @return Wrapped object.
      */
-    Object getObject() {
+    public Object getObject() {
         return mObject;
     }
 
@@ -67,7 +67,7 @@ class Node {
      *
      * @return Node level.
      */
-    int getLevel() {
+    public int getLevel() {
         return mLevel;
     }
 
@@ -76,14 +76,14 @@ class Node {
      *
      * @return Node parent.
      */
-    Node getParent() {
+    public Node getParent() {
         return mParent;
     }
 
     /**
      * Clears node sub-nodes (childs).
      */
-    void clearSubNodes() {
+    public void clearSubNodes() {
         mSubNodes = null;
     }
 
@@ -108,7 +108,7 @@ class Node {
      *
      * @return true if node is expanded, false otherwise.
      */
-    boolean isExpanded() {
+    public boolean isExpanded() {
         return mSubNodes != null;
     }
 
@@ -117,7 +117,7 @@ class Node {
      *
      * @return Node index within its level.
      */
-    int getIdxInLevel() {
+    public int getIdxInLevel() {
         return mIdxInLevel;
     }
 
@@ -126,7 +126,7 @@ class Node {
      *
      * @return Level size.
      */
-    int getLevelSize() {
+    public int getLevelSize() {
         return mLevelSize;
     }
 
@@ -135,7 +135,7 @@ class Node {
      *
      * @return Node sub-nodes (childs).
      */
-    List<Node> getSubNodes() {
+    public List<Node> getSubNodes() {
         return mSubNodes;
     }
 
@@ -144,7 +144,7 @@ class Node {
      *
      * @return Node info.
      */
-    NodeItemInfo getItemInfo() {
+    public NodeItemInfo getItemInfo() {
         if (mNodeItemInfo == null) {
             mNodeItemInfo = new NodeItemInfo(this);
         }
@@ -156,7 +156,7 @@ class Node {
      *
      * @param isExpandable node expandable value.
      */
-    void setExpandable(boolean isExpandable) {
+    public void setExpandable(boolean isExpandable) {
         mIsExpandable = isExpandable;
     }
 
@@ -165,7 +165,7 @@ class Node {
      *
      * @return true if object is expandable, false otherwise.
      */
-    boolean isExpandable() {
+    public boolean isExpandable() {
         return mIsExpandable;
     }
 }

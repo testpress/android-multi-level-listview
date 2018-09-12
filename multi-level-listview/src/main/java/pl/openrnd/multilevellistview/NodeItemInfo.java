@@ -23,7 +23,7 @@ package pl.openrnd.multilevellistview;
  *
  * ItemInfo interface implementation.
  */
-class NodeItemInfo implements ItemInfo {
+public class NodeItemInfo implements ItemInfo {
 
     private Node mNode;
 
