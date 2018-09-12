@@ -206,7 +206,7 @@ public class MultiLevelListView extends FrameLayout {
      * @param view Clicked view (provided by the adapter).
      * @param node Clicked group node.
      */
-    public void onGroupItemClicked(View view, Node node) {
+    public void onGroupItemClicked(View view, Node node, int position) {
         boolean isExpanded = node.isExpanded();
         if (!isAlwaysExpanded()) {
             if (isExpanded) {
@@ -220,7 +220,7 @@ public class MultiLevelListView extends FrameLayout {
             scrollToItemIfNeeded(mAdapter.getFlatItems().indexOf(node));
         }
 
-        notifyGroupItemClicked(view, node);
+        notifyGroupItemClicked(view, node, position);
     }
 
     /**
@@ -243,9 +243,10 @@ public class MultiLevelListView extends FrameLayout {
      * @param view Clicked view (provided by the adapter).
      * @param node Clicked group node.
      */
-    private void notifyGroupItemClicked(View view, Node node) {
+    private void notifyGroupItemClicked(View view, Node node, int position) {
         if (mOnItemClickListener != null) {
-            mOnItemClickListener.onGroupItemClicked(MultiLevelListView.this, view, node.getObject(), node.getItemInfo());
+            mOnItemClickListener.onGroupItemClicked(MultiLevelListView.this, view, position,
+                    node.getObject(), node.getItemInfo());
         }
     }
 
@@ -283,7 +284,7 @@ public class MultiLevelListView extends FrameLayout {
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             Node node = mAdapter.getFlatItems().get(position);
             if (node.isExpandable()) {
-                onGroupItemClicked(view, node);
+                onGroupItemClicked(view, node, position);
             } else {
                 onItemClicked(view, node);
             }
